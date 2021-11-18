@@ -1,0 +1,100 @@
+<div class="container ">
+    <div class="col-sm-8 m-auto">
+        <h1 class="my-5 bg-success p-3 text-center">ToDO Application</h1>
+
+        <div class="border border-5 border-start-0">
+            <h1 class="text-center bg-secondary text-white p-5">Edit ToDo Note</h1>
+            <form class="align-middle" [formGroup]="formData">
+                <div class="mb-3 col-12">
+                    <input type="text" formControlName="title" class="form-control" placeholder="Title"
+                        [ngClass]="{'is-invalid':submitted && f.title.errors}" required>
+
+                    <!-- Error Messages -->
+                    <div *ngIf="submitted && f.title.errors">
+                        <small *ngIf="submitted && f.title.errors.required" class="text-danger">Title is
+                            required</small>
+                    </div>
+                </div>
+                <div class="mb-3 col-12">
+                    <textarea type="text" formControlName="description" class="form-control"
+                        [ngClass]="{'is-invalid':submitted && f.description.errors}" required> </textarea>
+
+                    <!-- Error Messages -->
+                    <div *ngIf="submitted && f.description.errors">
+                        <small *ngIf="submitted && f.description.errors.required" class="text-danger">description is
+                            required</small>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-evenly my-3">
+                    <div class="col-6">
+                        <input type="text" formControlName="dueDate" placeholder="Select Date" class="form-control"
+                            [ngClass]="{'is-invalid':submitted && f.dueDate.errors}" bsDatepicker>
+                        <!-- Error Messages -->
+                        <div *ngIf="submitted && f.dueDate.errors">
+                            <small *ngIf="submitted && f.dueDate.errors.required" class="text-danger">date is
+                                required</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-6">
+                        <select class="col-12" (change)="changeDate()" placeholder="date" id="dateShortcut"
+                            formControlName="dateShortcut">
+                            <option value="Today">Today</option>
+                            <option value="Tomorrow">Tomorrow</option>
+                            <option value="next-week">Next-Week</option>
+                            <option value="next-month">Next-Month</option>
+                        </select>
+
+                    </div>
+                </div>
+                <span> <i class="fas fa-chevron-down"></i></span>
+
+                <div class="row d-flex justify-content-evenly mb-5">
+                    <button (click)="updateData()" type="submit" class="btn btn-primary col-5">Update</button>
+                    <button type="submit" class="btn btn-primary col-5" routerLink="/"
+                        routerLinkActivate="active">Cancel</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="container-fluid col-md-8 col-lg-6 col-xs-8 m-auto" style="height: 100%;">
+    <h1 class=" my-5 text-center bg-secondary text-white p-5">Edit ToDo Note</h1>
+    <form class="align-middle" [formGroup]="formData">
+        <div class="mb-3">
+            <input type="text" formControlName="title" class="form-control" placeholder="Title" required>
+        </div>
+        <div class="mb-3">
+            <textarea type="text" formControlName="description" class="form-control" required> </textarea>
+        </div>
+
+        <div class="d-flex justify-content-evenly my-3">
+            <div class="col-6">
+                <input type="text" formControlName="dueDate" placeholder="Select Date" class="form-control"
+                    bsDatepicker>
+            </div>
+
+            <div class="form-group col-6">
+                <select class="col-12" (change)="changeDate()" placeholder="date" id="dateShortcut"
+                    formControlName="dateShortcut">
+                    <option value="Today">Today</option>
+                    <option value="Tomorrow">Tomorrow</option>
+                    <option value="next-week">Next-Week</option>
+                    <option value="next-month">Next-Month</option>
+                </select>
+
+            </div>
+        </div>
+        <span> <i class="fas fa-chevron-down"></i></span>
+
+        <div class="row d-flex justify-content-evenly ">
+            <button (click)="updateData()" type="submit" class="btn btn-primary col-5">Update</button>
+            <button type="submit" class="btn btn-primary col-5" routerLink="/"
+                routerLinkActivate="active">Cancel</button>
+
+        </div>
+    </form>
+</div> -->

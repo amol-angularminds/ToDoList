@@ -1,0 +1,98 @@
+<div class="container ">
+  <div class="col-sm-8 m-auto">
+    <h1 class="my-5 bg-success p-3 text-center">ToDO Application</h1>
+
+    <table class="table  text-center border border-5 border-start-0">
+      <thead>
+        <th colspan="3">To Do List</th>
+      </thead>
+
+      <tbody *ngIf="this.toDoArr.length==0">
+        <tr>
+          <td colspan="3">
+            <img class="imgimg-fluid" src="./assets/images/undraw_Sorting_thoughts_re_fgli.svg"
+              style="height: 250px;width: 250px;">
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <h3 class="text-muted"> No Previous Data Found, Let's Start With...</h3>
+          </td>
+        </tr>
+      </tbody>
+
+
+      <tbody *ngIf="this.toDoArr.length!=0" cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+        <tr class="example-box" *ngFor="let listData of this.toDoArr;let id =index" (mouseover)="mouseOver(listData.id)"
+          (mouseleave)="mouseLeave(listData.id)" cdkDrag>
+          <td>
+            <span class="col-2 text-start" *ngIf="listBtnShow && currentIndex == listData.id;else other_content">
+              <button class="btn btn-sm" (click)="doneBtn(listData.id,id)"> <i class='bx bxs-check-circle'></i>
+              </button>
+            </span>
+            <ng-template #other_content>
+              <span class="col-2 text-start" #other_content>
+                <button class="btn btn-sm"> <i class='bx bx-circle'> </i> </button>
+              </span>
+            </ng-template>
+          </td>
+          <td class="mr-auto" scope="col-8"> {{listData.title}} </td>
+          <td *ngIf="listBtnShow && currentIndex == listData.id">
+            <span class="col-2 ml-auto">
+              <button class="btn btn-sm btn-outline-primary mx-2" routerLink="/edit/{{listData.id}}"
+                routerLinkActivate="active"> <i class='bx bxs-edit-alt'> </i></button>
+              <button class="btn btn-sm btn-outline-primary mx-2" (click)="deleteBtn(listData.id,'todoArr')"> <i
+                  class='bx bx-trash' style="font-size: auto;"></i></button>
+            </span>
+          </td>
+        </tr>
+
+        <tr class="example-custom-placeholder" *cdkDragPlaceholder> </tr>
+      </tbody>
+
+    </table>
+    <button type="button" class="btn btn-outline-primary  mx-2" routerLink="/add" routerLinkActivate="active"> Add
+      Note</button>
+
+    <button class="m-2" type="button" class="btn btn-primary" (click)="isCollapsed = !isCollapsed"
+      [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">Completed Task
+    </button>
+
+
+    <!-- completed List -->
+    <div id="collapseBasic" [collapse]="isCollapsed" [isAnimated]="true">
+      <table class="table  text-center">
+        <thead>
+          <th colspan="3">Completed List</th>
+        </thead>
+        <tbody>
+          <tr class="example-box" *ngFor="let listData of completedArr;let id =index"
+            (mouseover)="mouseOver(listData.id)" (mouseleave)="mouseLeave(listData.id)">
+            <td>
+              <span class="col-2 text-start" *ngIf="listBtnShow && currentIndex == listData.id;else other_content">
+                <button class="btn btn-sm" (click)="undoneBtn(listData.id,id)"><i class='bx bx-circle'></i>
+                </button>
+              </span>
+              <ng-template #other_content>
+                <span class="col-2 text-start" #other_content>
+                  <button class="btn btn-sm"> <i class='bx bxs-check-circle'></i> </button>
+                </span>
+              </ng-template>
+            </td>
+            <td class="mr-auto"> {{listData.title}} </td>
+            <td *ngIf="listBtnShow && currentIndex == listData.id">
+              <span class="col-2 ml-auto">
+                <button class="btn btn-sm btn-outline-primary mx-2" routerLink="/edit/{{listData.id}}"
+                  routerLinkActivate="active"> <i class='bx bxs-edit-alt'> </i></button>
+                <button class="btn btn-sm btn-outline-primary mx-2" (click)="deleteBtn(listData.id,'todoArr')"> <i
+                    class='bx bx-trash' style="font-size: auto;"></i></button>
+              </span>
+            </td>
+          </tr>
+          <tr class="example-custom-placeholder" *cdkDragPlaceholder> </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>
